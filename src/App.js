@@ -16,24 +16,28 @@ function App() {
     [2, 4, 6]
   ];
 
-  const [board, setBoard] = useState(Array(9).fill(null));
   const [xPlaying, setXPlaying] = useState(true);
+  const [board, setBoard] = useState(Array(9).fill(null));
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 });
   const [gameOver, setGameOver] = useState(false);
 
-  const handleBoxClick = boxId => {
-    const updateBoard = board.map((value, idx) => {
-      if (idx === boxId) {
-        return xPlaying === true ? 'X' : 'O';
+  const handleBoxClick = boxIdx => {
+    // Update the board
+    const updatedBoard = board.map((value, idx) => {
+      if (idx === boxIdx) {
+        return xPlaying ? 'X' : 'O';
       } else {
         return value;
       }
     });
 
-    const winner = checkWinner(updateBoard);
+    setBoard(updatedBoard);
+
+    // Check if either player has won the game
+    const winner = checkWinner(updatedBoard);
 
     if (winner) {
-      if (winner === '0') {
+      if (winner === 'O') {
         let { oScore } = scores;
         oScore += 1;
         setScores({ ...scores, oScore });
@@ -44,7 +48,7 @@ function App() {
       }
     }
 
-    setBoard(updateBoard);
+    // Change active player
     setXPlaying(!xPlaying);
   };
 
