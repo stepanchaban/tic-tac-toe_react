@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  width: 20rem;
+  width: 30rem;
   font-size: 1.5em;
   background-color: white;
   margin: 3rem auto;
@@ -32,4 +32,12 @@
 
 .inactive {
   border-bottom: 5px solid transparent;
+}
+
+.draw {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  text-align: center;
+  color: rgb(0, 0, 0);
 }
