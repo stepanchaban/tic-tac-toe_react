@@ -17,6 +17,10 @@
   color: rgb(255, 70, 37);
 }
 
+.winner {
+  background-color: aquamarine;
+}
+
 .o {
   color: rgb(44, 135, 255);
 }

@@ -4,11 +4,23 @@ import Board from './components/Board';
 import ScoreBoard from './components/ScoreBoard';
 import ResetButton from './components/ResetButton';
 
+const lines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [xPlaying, setXPlaying] = useState(true);
   const [scores, setScores] = useState({ xScore: 0, oScore: 0, drawScore: 0 });
   const [gameOver, setGameOver] = useState(false);
+  const [win, setWin] = useState([]);
 
   const handleBoxClick = boxIdx => {
     // Update the board
@@ -40,26 +52,14 @@ function App() {
     const emptyCells = updatedBoard.filter(cell => cell === null);
     const isDraw = emptyCells.length === 0;
 
-    if (isDraw) {
+    if (isDraw && !winner) {
       let { drawScore } = scores;
       drawScore += 1;
       setScores({ ...scores, drawScore });
     }
-
     // Change active player
     setXPlaying(!xPlaying);
   };
-
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
 
   const checkWinner = cells => {
     for (let i = 0; i < lines.length; i++) {
@@ -67,21 +67,28 @@ function App() {
 
       if (cells[x] && cells[x] === cells[y] && cells[y] === cells[z]) {
         setGameOver(true);
+        setWin(lines[i]);
         return cells[x];
       }
     }
+
     return null;
   };
 
   const resetBoard = () => {
     setGameOver(false);
+    setWin([]);
     setBoard(Array(9).fill(null));
   };
 
   return (
     <div className="App">
       <ScoreBoard scores={scores} xPlaying={xPlaying} />
-      <Board board={board} onClick={gameOver ? resetBoard : handleBoxClick} />
+      <Board
+        win={win}
+        board={board}
+        onClick={gameOver ? resetBoard : handleBoxClick}
+      />
       <ResetButton resetBoard={resetBoard} />
     </div>
   );

@@ -1,9 +1,14 @@
-import './Box.css';
+import classNames from 'classnames';
+import styles from './Box.module.css';
 
-const Box = ({ value, onClick }) => {
-  const style = value === 'X' ? 'box x' : 'box o';
+const Box = ({ value, onClick, win }) => {
+  const targetStyle = value === 'X' ? styles.x : styles.o;
+
   return (
-    <button className={style} onClick={onClick}>
+    <button
+      className={classNames(styles.box, targetStyle, { [styles.winner]: win })}
+      onClick={onClick}
+    >
       {value}
     </button>
   );
