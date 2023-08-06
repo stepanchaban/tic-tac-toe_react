@@ -1,14 +1,22 @@
-import './ScoreBoard.css';
+import styles from './ScoreBoard.module.css';
 
 const ScoreBoard = ({ scores, xPlaying }) => {
   const { xScore, oScore, drawScore } = scores;
   return (
-    <div className="scoreboard">
-      <span className={`score x-score ${!xPlaying && 'inactive'}`}>
+    <div className={styles.scoreboard}>
+      <span
+        className={`${styles.score} ${styles['x-score']} ${
+          !xPlaying && styles.inactive
+        }`}
+      >
         X - {xScore}
       </span>
-      <span className={`draw`}>draw - {drawScore}</span>
-      <span className={`score o-score ${xPlaying && 'inactive'}`}>
+      <span className={styles.draw}>draw - {drawScore}</span>
+      <span
+        className={`${styles.score} ${styles['o-score']} ${
+          !xPlaying && styles.inactive
+        }`}
+      >
         O - {oScore}
       </span>
     </div>

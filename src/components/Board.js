@@ -1,9 +1,9 @@
 import Box from './Box';
-import './Board.css';
+import styles from './Board.module.css';
 
 const Board = ({ board, onClick, win }) => {
   return (
-    <div className="board">
+    <div className={styles.board}>
       {board.map((value, idx) => {
         const isWin = win.includes(idx);
         return (
